@@ -1,0 +1,43 @@
+Leapfrog
+========
+
+1.Installation
+
+  Download and copy to vender/plugins folder.
+
+
+
+Example
+=======
+
+1. Migration file
+
+add 't.users' to Migration file in self.up method.
+
+
+class CreateUsers < ActiveRecord::Migration
+  def self.up
+    create_table :users do |t|
+      t.string :name
+      t.string :password
+      t.string :email
+
+      t.timestamps
+      t.users # add
+    end
+  end
+
+  def self.down
+    drop_table :users
+  end
+end
+
+2.Controller
+
+  ex. Model Products
+
+  product.save_with_user(<user_id>) insted of user.save
+  product.update_with_user(<params>, <user_id>) insted of user.update(<params>)
+
+
+Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
