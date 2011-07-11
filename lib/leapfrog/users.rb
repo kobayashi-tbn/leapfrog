@@ -3,15 +3,10 @@
 
 module Leapfrog
   module Users
-    def save_with_user(user)
-      self.created_by = user if self.new_record?
-      self.updated_by = user if !self.new_record?
-      self.save
-    end
-
-    def update_with_user(params, user)
-      self.updated_by = user
-      self.update_attributes(params)
-    end
+#    def save_with_user #(user)
+##      self.created_by = self.lf_user_id if self.new_record?
+##      self.updated_by = self.lf_user_id if !self.new_record?
+#
+#    end
   end
 end
