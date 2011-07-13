@@ -1,3 +1,7 @@
+== 0.2.1 released 2011-07-13
+
+* Fix for alter table migration
+
 == 0.2.0 released 2011-07-12
 
 * Using Thread for accounts

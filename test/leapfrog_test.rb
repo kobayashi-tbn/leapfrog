@@ -9,7 +9,7 @@ class LeapfrogTest < ActiveSupport::TestCase
 #    assert true
 #  end
 
-  test "respond_to lf_user_id" do
+  test "save_user_id" do
     @user = User.new(:name => "James", :password => "secret", :email => "james@example.com")
     #assert_respond_to(@user, :lf_user_id)
 
@@ -24,7 +24,6 @@ class LeapfrogTest < ActiveSupport::TestCase
     @user.save
     assert_equal(@user.created_by, 10)
     assert_equal(@user.updated_by, 11)
-    
   end
 
   test "load user and update" do
@@ -36,6 +35,4 @@ class LeapfrogTest < ActiveSupport::TestCase
     @user.update_attributes({:email => "new@example.com"})
     assert_equal(@user.updated_by, new_user_id)
   end
-
-
 end

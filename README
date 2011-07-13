@@ -12,24 +12,48 @@ Example
 
 1. Migration file
 
-add 't.users' to Migration file in self.up method.
+  Add 't.users' to Migration file in self.up method.
 
 
-class CreateUsers < ActiveRecord::Migration
-  def self.up
-    create_table :users do |t|
-      t.string :name
-      t.string :password
-      t.string :email
+    class CreateUsers < ActiveRecord::Migration
+      def self.up
+        create_table :users do |t|
+          t.string :name
+          t.string :password
+          t.string :email
 
-      t.timestamps
-      t.users # add
+          t.timestamps
+          t.users     # add column 'created_by' and 'updated_by'
+        end
+      end
+
+      def self.down
+        drop_table :users
+      end
     end
-  end
 
-  def self.down
-    drop_table :users
-  end
-end
+
+  If you want to add column after created tables.
+  Then run script/generate migration add_users_to_todo
+  and edit the migration file.
+
+
+    class AddUsersToTodo < ActiveRecord::Migration
+      def self.up
+        add_users :todos
+      end
+
+      def self.down
+        remove_users :todos
+      end
+    end
+
+
+2. Edit environment.rb
+
+  Add observers.
+
+    config.active_record.observers = :leapfrog_observer
+
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
