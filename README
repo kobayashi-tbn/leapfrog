@@ -55,5 +55,15 @@ Example
 
     config.active_record.observers = :leapfrog_observer
 
+3. If it is running on development enviroment edit
+   config/enviroments/development.rb
+
+    config.cache_classes = true # false(default) -> true
+
+4. LeapfrogObserver u/c
+
+      observe :user # need to define observe :target_table
+
+   I will define to YAML file asap :D
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license

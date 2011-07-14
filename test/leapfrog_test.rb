@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'leapfrog/user_info'
+require 'leapfrog/users'
 
 class LeapfrogTest < ActiveSupport::TestCase
   # Replace this with your real tests.

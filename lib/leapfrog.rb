@@ -1,8 +1,8 @@
 # Leapfrog
-require 'leapfrog/user_info'
-require 'observer'
 require 'leapfrog/user_columns'
 require 'leapfrog/alter_user_columns'
+require 'leapfrog/users'
+require 'leapfrog_observer'
 #require 'leapfrog/users'
 
 ActiveRecord::ConnectionAdapters::TableDefinition.class_eval do
@@ -26,12 +26,6 @@ conn.extend Leapfrog::AlterUserColumns
 #end
 
 ApplicationController.class_eval do
-  include Leapfrog::UserInfo
-
-  before_filter :set_current_user_id
-
-  def set_current_user_id
-    UserInfo.current_user_id = session[:user_id]
-  end
-
+  include Leapfrog::Users
+  lf_users
 end
