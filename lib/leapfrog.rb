@@ -1,9 +1,7 @@
 # Leapfrog
 require 'leapfrog/user_columns'
-require 'leapfrog/alter_user_columns'
 require 'leapfrog/users'
-require 'leapfrog_observer'
-#require 'leapfrog/users'
+#require 'leapfrog/leapfrog_observer'
 
 ActiveRecord::ConnectionAdapters::TableDefinition.class_eval do
   include Leapfrog::UserColumns
@@ -16,6 +14,11 @@ end
 conn = ActiveRecord::Base::connection
 conn.extend Leapfrog::AlterUserColumns
 
+ActiveRecord::Base.class_eval do
+  #include Leapfrog::AlterUserColumns
+  include Leapfrog::Model::Observe
+end
+
 #ActiveRecord::Base.class_eval do
 #  include Leapfrog::Users
 #
@@ -26,6 +29,7 @@ conn.extend Leapfrog::AlterUserColumns
 #end
 
 ApplicationController.class_eval do
-  include Leapfrog::Users
-  lf_users
+  include Leapfrog::Controller::Users
+  #lf_users
 end
+

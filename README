@@ -1,16 +1,28 @@
-Leapfrog
-========
+= Leapfrog
+
+Leapfrog has mainly 2 functions.
+One is Migration support. Other is setting data support.
+
+Usually enterprise system is recording who made or updated the data.
+But tables has not created_by/updated_by columns on scaffold generate.
+
+You append one line into a migration file
+
+
+
 
 1.Installation
 
   Download and copy to vender/plugins folder.
 
+  or
 
+  script/plugin install git://kobayashi-tbn.github.com/leapfrog.git
 
 Example
 =======
 
-1. Migration file
+Migration
 
   Add 't.users' to Migration file in self.up method.
 
@@ -33,9 +45,9 @@ Example
     end
 
 
-  If you want to add column after created tables.
+  If you want to add column after created tables,
   Then run script/generate migration add_users_to_todo
-  and edit the migration file.
+  and edit the migration file.(ex. Model name is Todo.)
 
 
     class AddUsersToTodo < ActiveRecord::Migration
@@ -49,21 +61,20 @@ Example
     end
 
 
-2. Edit environment.rb
+Controller
+==========
 
-  Add observers.
 
-    config.active_record.observers = :leapfrog_observer
 
-3. If it is running on development enviroment edit
+
+NOTE
+====
+
+If it is running on development enviroment edit
    config/enviroments/development.rb
 
     config.cache_classes = true # false(default) -> true
 
-4. LeapfrogObserver u/c
 
-      observe :user # need to define observe :target_table
-
-   I will define to YAML file asap :D
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
