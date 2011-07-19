@@ -1,17 +1,15 @@
 = Leapfrog
 
 Leapfrog has mainly 2 functions.
-One is Migration support. Other is setting data support.
+One is Migration support. Other is data registration support.
 
-Usually enterprise system is recording who made or updated the data.
-But tables has not created_by/updated_by columns on scaffold generate.
+Typically, an enterprise system records the user who submitted the data.
+But tables do not have created_by/updated_by columns on scaffold generate.
 
-You append one line into a migration file
+By you are appending one line into a migration file,  then created_by and
+updated_by columns are added.
 
-
-
-
-1.Installation
+== Installation
 
   Download and copy to vender/plugins folder.
 
@@ -19,12 +17,11 @@ You append one line into a migration file
 
   script/plugin install git://kobayashi-tbn.github.com/leapfrog.git
 
-Example
-=======
+== Example
 
 Migration
 
-  Add 't.users' to Migration file in self.up method.
+  Add 't.users' to Migration file into self.up method.
 
 
     class CreateUsers < ActiveRecord::Migration
@@ -61,14 +58,40 @@ Migration
     end
 
 
-Controller
-==========
+== Controller
+
+ActionController includes Leapfrog::Controller::Users
+and each Controller object was extended Leapfrog::Controller::LfMacro
+for get the user_id from Leapfrog::UserInfo
 
 
+== Model
+
+ActiveRecord::Base includes Leapfrog::Model::Observe.
+and each Model object was extended Leapfrog::Model::LfMacro
+for set data to 'created_by' and 'updated_by' column of the Model.
+
+You need to define 'leapfrog_user_id' in each Model
+
+=== Example
+
+    class Todo < ActiveRecord::Base
+      leapfrog_user_id
+    end
 
 
-NOTE
-====
+== How to get the User ID
+
+Leapfrog get user_id from the session in the Controller, so
+you have to set the user_id into session[:user_id].
+
+
+== TODO
+
+I want to be able to use user_name as well as user_id by session[:user_name]
+
+
+== NOTE
 
 If it is running on development enviroment edit
    config/enviroments/development.rb
