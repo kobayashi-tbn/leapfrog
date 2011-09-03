@@ -15,7 +15,7 @@ updated_by columns are added.
 
   or
 
-  script/plugin install git://kobayashi-tbn.github.com/leapfrog.git
+  script/plugin install git://github.com/kobayashi-tbn/leapfrog.git
 
 == Example
 
