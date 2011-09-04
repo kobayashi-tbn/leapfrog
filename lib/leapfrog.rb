@@ -1,7 +1,11 @@
 # Leapfrog
+
+# For Rails3.
+require 'active_record/connection_adapters/abstract/schema_definitions'
+
 require 'leapfrog/user_columns'
 require 'leapfrog/users'
-#require 'leapfrog/leapfrog_observer'
+require 'leapfrog/version'
 
 ActiveRecord::ConnectionAdapters::TableDefinition.class_eval do
   include Leapfrog::UserColumns
