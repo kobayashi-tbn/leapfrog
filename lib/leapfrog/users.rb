@@ -48,7 +48,7 @@ module Leapfrog
     module LfMacro
       def leapfrog_user_id
 
-        puts "♦LfObserveMacro #{self}"
+        puts "LfObserveMacro #{self}"
         self.send(:include, Leapfrog::UserInfo)
         self.send(:include, Leapfrog::Model::InstanceMethods)
 
