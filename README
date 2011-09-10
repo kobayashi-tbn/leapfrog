@@ -17,6 +17,9 @@ updated_by columns are added.
 
   script/plugin install git://github.com/kobayashi-tbn/leapfrog.git
 
+  when rails3...
+  rails plugin install git://github.com/kobayashi-tbn/leapfrog.git
+
 == Example
 
 Migration
