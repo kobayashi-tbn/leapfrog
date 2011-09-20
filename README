@@ -1,5 +1,7 @@
 = Leapfrog
 
+Leapfrog provides simplify function for "userstamps".
+
 Leapfrog has mainly 2 functions.
 One is Migration support. Other is data registration support.
 
@@ -24,7 +26,7 @@ updated_by columns are added.
 
 Migration
 
-  Add 't.users' to Migration file into self.up method.
+  Add 't.userstamps' to Migration file into self.up method.
 
 
     class CreateUsers < ActiveRecord::Migration
@@ -35,7 +37,7 @@ Migration
           t.string :email
 
           t.timestamps
-          t.users     # add column 'created_by' and 'updated_by'
+          t.userstamps     # add column 'created_by' and 'updated_by'
         end
       end
 
@@ -46,17 +48,17 @@ Migration
 
 
   If you want to add column after created tables,
-  Then run script/generate migration add_users_to_todo
+  Then run script/generate migration add_userstamps_to_todo
   and edit the migration file.(ex. Model name is Todo.)
 
 
-    class AddUsersToTodo < ActiveRecord::Migration
+    class AddUserstampsToTodo < ActiveRecord::Migration
       def self.up
-        add_users :todos
+        add_userstamps :todos
       end
 
       def self.down
-        remove_users :todos
+        remove_userstamps :todos
       end
     end
 
@@ -101,6 +103,7 @@ If it is running on development enviroment edit
 
     config.cache_classes = true # false(default) -> true
 
+* This issue was fixed v0.2.3~
 
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
