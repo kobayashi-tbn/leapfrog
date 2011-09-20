@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'leapfrog'
 require 'leapfrog/users'
 
 class LeapfrogTest < ActiveSupport::TestCase
@@ -13,16 +14,18 @@ class LeapfrogTest < ActiveSupport::TestCase
     @user = User.new(:name => "James", :password => "secret", :email => "james@example.com")
 
     #@user.lf_user_id = 10
-    Leapfrog::UserInfo.current_user_id = 10
+    user_id = rand(100)
+    Leapfrog::UserInfo.current_user_id = user_id # 10
     @user.save
-    assert_equal(@user.created_by, 10)
+    assert_equal(@user.created_by, user_id) #10)
     assert_equal(@user.updated_by, nil)
 
     #@user.lf_user_id = 11
-    Leapfrog::UserInfo.current_user_id = 11
+    user_id2 = rand(100)+100
+    Leapfrog::UserInfo.current_user_id = user_id2 # 11
     @user.save
-    assert_equal(@user.created_by, 10)
-    assert_equal(@user.updated_by, 11)
+    assert_equal(@user.created_by, user_id ) #10)
+    assert_equal(@user.updated_by, user_id2) # 11)
   end
 
   test "load user and update user_id" do
@@ -35,7 +38,7 @@ class LeapfrogTest < ActiveSupport::TestCase
     assert_equal(@user.updated_by, new_user_id)
   end
 
-    test "save user_id to todo" do
+  test "save user_id to todo" do
     @todo = Todo.new(:title => "new todo", :description => "refactoring", :limit_on => Date.today)
 
     #@user.lf_user_id = 10

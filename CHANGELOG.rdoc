@@ -1,3 +1,8 @@
+== 0.2.3 released 2011-09-20
+
+* Fix fro development env.
+  "config.cache_classes = false" in config/enviroments/development.rb
+
 == 0.2.2 released 2011-09-04
 
 * Rails3 support
