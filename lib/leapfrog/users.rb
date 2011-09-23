@@ -4,13 +4,13 @@
 module Leapfrog
   module UserInfo
     def current_user_id
-      puts "...get current_user_id=#{Thread.current[:user_id]}"
+      # puts "...get current_user_id=#{Thread.current[:user_id]}"
       Thread.current[:user_id]
     end
 
     def self.current_user_id=(user_id)
       Thread.current[:user_id] = user_id
-      puts "...set current_user_id=#{Thread.current[:user_id]}"
+      # puts "...set current_user_id=#{Thread.current[:user_id]}"
     end
   end
 
@@ -54,7 +54,7 @@ module Leapfrog
     module LfMacro
       def leapfrog_user_id
 
-        puts "LfObserveMacro #{self}"
+        # puts "LfObserveMacro #{self}"
         self.send(:include, Leapfrog::UserInfo) unless self.include?(Leapfrog::UserInfo)
         self.send(:include, Leapfrog::Model::InstanceMethods) unless self.include?(Leapfrog::Model::InstanceMethods)
 
