@@ -1,0 +1,8 @@
+postgresql:
+  adapter: postgresql
+  encoding: unicode
+  database: leapfrog_plugin_test
+  pool: 5
+  username: postgres
+  password: postgres
+  
