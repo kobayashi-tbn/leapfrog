@@ -18,6 +18,24 @@ ActiveRecord::Schema.define do
     t.boolean   :complete
 
     t.timestamps
+#    t.userstamps
+  end
+end
+
+ActiveRecord::Schema.define do
+  change_table :dummy_todos do |t|
+    t.userstamps
+  end
+end
+
+ActiveRecord::Schema.define do
+  change_table :dummy_todos do |t|
+    t.remove_userstamps
+  end
+end
+
+ActiveRecord::Schema.define do
+  change_table :dummy_todos do |t|
     t.userstamps
   end
 end

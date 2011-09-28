@@ -2,13 +2,6 @@ ENV["RAILS_ENV"] = "test"
 
 require 'rubygems'
 require 'test/unit'
-#require 'active_support'
-#require 'active_support/test_case'
-#require 'active_record'
-#require 'action_controller'
-
-require File.join(File.dirname(__FILE__), '/../lib/leapfrog/user_columns')
-
 
 require 'bundler'
 
@@ -21,10 +14,6 @@ rescue Bundler::BundlerError => e
 end
 
 
-#require 'dummy/app/models/dummy_user'
-#require 'dummy/app/models/dummy_todo'
-
-
 def prepare_test_database
   config = YAML::load( IO.read( File.dirname(__FILE__) + '/database.yml') )
 
@@ -34,9 +23,8 @@ def prepare_test_database
   config['postgresql']['database'] = ''
   ActiveRecord::Base.establish_connection(config['postgresql'])
   conn = ActiveRecord::Base::connection
-  #conn = Pg.real_connect( config['postgresql']['host'], config['postgresql']['username'], config['postgresql']['password'] )
 
-  #conn.query( "CREATE DATABASE IF NOT EXISTS #{config['postgresql']['database']}" )
+  #conn.query( "CREATE DATABASE IF NOT EXISTS #{config['mysql']['database']}" )
   begin
     conn.query( "CREATE DATABASE #{database_name}" )
   rescue => e
@@ -75,8 +63,6 @@ end
 
 prepare_test_database
 
-require File.join(File.dirname(__FILE__), '/../lib/leapfrog/user_columns')
-require File.join(File.dirname(__FILE__), '/../lib/leapfrog/users')
 require File.join(File.dirname(__FILE__), '/../lib/leapfrog')
 
 load_schema

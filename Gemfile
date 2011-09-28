@@ -6,7 +6,7 @@ gem 'rails', '3.0.10'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'nifty-generators'
+#gem 'nifty-generators'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -30,7 +30,6 @@ gem 'nifty-generators'
 # group :development, :test do
 #   gem 'webrat'
 # end
-
 
 group :development, :test do
   require 'active_record'
