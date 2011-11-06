@@ -12,17 +12,19 @@ module Leapfrog
 
     def userstamps(*args)
       options = args.extract_options!
-      column(:created_by, :integer, options)
-      column(:updated_by, :integer, options)
+      type = options[:type] || :integer
+p "type=#{type}"
+      column(:created_by, type, options)
+      column(:updated_by, type, options)
     end
   end
 
   # extend for ActiveRecord::Base::connection
   # include for ActiveRecord::ConnectionAdapters::AbstractAdapter
   module AbstractAdapter
-    def add_users(table_name, options = {})
-      add_column table_name, :created_by, :integer, options
-      add_column table_name, :updated_by, :integer, options
+    def add_users(table_name, options)
+      add_column table_name, :created_by, options[:type] || :integer, options
+      add_column table_name, :updated_by, options[:type] || :integer, options
     end
 
     alias_method :add_userstamps, :add_users
@@ -36,8 +38,10 @@ module Leapfrog
   end
 
   module Table
-    def userstamps
-      @base.add_userstamps(@table_name)
+    def userstamps(*args)
+      options = args.extract_options!
+p "options=#{options}"
+      @base.add_userstamps(@table_name, options)
     end
 
     def remove_userstamps
