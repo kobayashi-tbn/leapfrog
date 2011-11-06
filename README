@@ -1,6 +1,7 @@
 = Leapfrog
 
-Leapfrog provides simplify function for "userstamp".
+Leapfrog is a rails plugin for userstamps.
+That provides simplify function for userstamps.
 
 Leapfrog has mainly 2 functions.
 One is Migration support. Other is data registration support.
@@ -62,12 +63,18 @@ Migration
       end
     end
 
+  'created_by' and 'updated_by' columns type is :integer.
+  If you use type :string then, define the following.
+
+    t.userstamps :type => :string
+
+    add_userstamps :todos, :type => :string
 
 == Controller
 
 ActionController includes Leapfrog::Controller::Users
 and each Controller object was extended Leapfrog::Controller::LfMacro
-for get the user_id from Leapfrog::UserInfo
+for get the user_id/username from Leapfrog::UserInfo
 
 
 == Model
@@ -77,6 +84,7 @@ and each Model object was extended Leapfrog::Model::LfMacro
 for set data to 'created_by' and 'updated_by' column of the Model.
 
 You need to define 'leapfrog_user_id' in each Model
+If instead of 'user_id', you use 'username' then, define 'leapfrog :username'
 
 === Example
 
@@ -84,17 +92,34 @@ You need to define 'leapfrog_user_id' in each Model
       leapfrog_user_id
     end
 
+  or
+
+    class Todo < ActiveRecord::Base
+      leapfrog :user_id
+    end
+
+  If you use username, that type is String then...
+
+    class Todo < ActiveRecord::Base
+      leapfrog :username
+    end
+
 
 == How to get the User ID
 
 Leapfrog get user_id from the session in the Controller, so
 you have to set the user_id into session[:user_id].
+If username that type is :string then, session[:username].
 
+== Customizing the key of session map
 
-== TODO
+  Rails3:
+    Add following.
+    If instead of :username, you use :user_name.
 
-I want to be able to use user_name as well as user_id by session[:user_name]
-
+    app/controllers/application_controller.rb
+    add 1 line.
+    Leapfrog::UserInfo::USERSTAMP_MAP[:name] = :user_name
 
 == NOTE
 
