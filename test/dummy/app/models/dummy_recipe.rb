@@ -1,3 +1,3 @@
 class DummyRecipe < ActiveRecord::Base
-  leapfrog_user_id
+  leapfrog :username
 end

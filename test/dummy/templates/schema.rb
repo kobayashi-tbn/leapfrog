@@ -18,24 +18,17 @@ ActiveRecord::Schema.define do
     t.boolean   :complete
 
     t.timestamps
-#    t.userstamps
-  end
-end
-
-ActiveRecord::Schema.define do
-  change_table :dummy_todos do |t|
     t.userstamps
   end
 end
 
-ActiveRecord::Schema.define do
-  change_table :dummy_todos do |t|
-    t.remove_userstamps
-  end
-end
+require File.join(File.dirname(__FILE__), '..', 'db/create_recipe')
+require File.join(File.dirname(__FILE__), '..', 'db/create_post')
+require File.join(File.dirname(__FILE__), '..', 'db/add_userstamps_to_recipe')
+require File.join(File.dirname(__FILE__), '..', 'db/add_userstamps_to_post')
 
-ActiveRecord::Schema.define do
-  change_table :dummy_todos do |t|
-    t.userstamps
-  end
-end
+CreateRecipe.up
+AddUserstampsToRecipe.down
+
+CreatePost.up
+AddUserstampsToPost.up
