@@ -15,7 +15,7 @@ end
 
 
 def prepare_test_database
-  config = YAML::load( IO.read( File.dirname(__FILE__) + '/database.yml') )
+  config = YAML::load( IO.read( File.join( File.dirname(__FILE__), 'database.yml' ) ) )
 
   # Manually initialize the database
   ActiveRecord::Base.configurations = config
@@ -38,13 +38,13 @@ def prepare_test_database
 end
 
 def load_schema
-  config = YAML::load( IO.read( File.dirname(__FILE__) + '/database.yml') )
+  config = YAML::load( IO.read( File.join( File.dirname(__FILE__), 'database.yml' ) ) )
 
   ActiveRecord::Base.configurations = config
   ActiveRecord::Base.establish_connection( config['postgresql'] )
   ActiveRecord::Base.connection()
 
-  load(File.dirname(__FILE__) + "/dummy/templates/schema.rb")
+  load(File.join( File.dirname(__FILE__), 'dummy/templates/schema.rb' ) )
 
 #  load_fixture( 'dummy_users' )
 #  load_fixture( 'dummy_todos' )
@@ -61,9 +61,9 @@ end
 #
 #end
 
-prepare_test_database
+require File.join(File.dirname(__FILE__), '..', 'lib/leapfrog')
 
-require File.join(File.dirname(__FILE__), '/../lib/leapfrog')
+prepare_test_database
 
 load_schema
 
