@@ -41,7 +41,7 @@ module Leapfrog
 #        Leapfrog::UserInfo.current_user_id = session[:user_id] || -1
 
         users = {}
-        Leapfrog::UserInfo::USERSTAMP_KEYS.each do |k, v|
+        Leapfrog::UserInfo::USERSTAMP_MAP.each do |k, v|
           users[v] = session[v]
         end
 
