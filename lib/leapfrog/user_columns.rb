@@ -12,7 +12,7 @@ module Leapfrog
 
     def userstamps(*args)
       options = args.extract_options!
-      type = options[:type] || :integer
+      type = options[:type] || :string
       column(:created_by, type, options)
       column(:updated_by, type, options)
     end
@@ -23,8 +23,8 @@ module Leapfrog
   module AbstractAdapter
     def add_users(table_name, *args)
       options = args.extract_options!
-      add_column table_name, :created_by, options[:type] || :integer, options
-      add_column table_name, :updated_by, options[:type] || :integer, options
+      add_column table_name, :created_by, options[:type] || :string, options
+      add_column table_name, :updated_by, options[:type] || :string, options
     end
 
     alias_method :add_userstamps, :add_users

@@ -3,17 +3,7 @@
 
 module Leapfrog
   module UserInfo
-    USERSTAMP_MAP = {:id => :user_id, :name => :username}
-    
-    def current_user_id
-#      Thread.current[USERSTAMP_KEYS[:id]]
-      current_user(USERSTAMP_MAP[:id])
-    end
-
-    def self.current_user_id=(user_id)
-#      Thread.current[USERSTAMP_KEYS[:id]] = user_id
-      Leapfrog::UserInfo.current_user = {USERSTAMP_MAP[:id] => user_id}
-    end
+    USERSTAMP_KEY_MAP = {:id => :user_id, :name => :username}
 
     def current_user(key)
       Thread.current[key]
@@ -31,17 +21,20 @@ module Leapfrog
     module Users
       def self.included(controller)
         controller.send :include, Leapfrog::Controller::InstanceMethods
-        #controller.send :before_filter, :set_current_user_id
         controller.send :before_filter, :set_current_user
       end
     end
  
     module InstanceMethods
       def set_current_user(*args)
-#        Leapfrog::UserInfo.current_user_id = session[:user_id] || -1
+
+        # for devise
+        if session['warden.user.user.key'] && session['warden.user.user.key'][1][0]
+          session[:username] = session['warden.user.user.key'][1][0]
+        end
 
         users = {}
-        Leapfrog::UserInfo::USERSTAMP_MAP.each do |k, v|
+        Leapfrog::UserInfo::USERSTAMP_KEY_MAP.each do |k, v|
           users[v] = session[v]
         end
 
@@ -59,11 +52,7 @@ module Leapfrog
 
     module LfMacro
       def leapfrog_user_id
-#        self.send(:include, Leapfrog::UserInfo) unless self.include?(Leapfrog::UserInfo)
-#        self.send(:include, Leapfrog::Model::InstanceMethods) unless self.include?(Leapfrog::Model::InstanceMethods)
-#
-#        before_create :set_user_id_to_created_by
-#        before_update :set_user_id_to_updated_by
+        puts "[Warn] Method leapfrog_user_id is deprecated. Usage leapfrog(key) insted."
         leapfrog :user_id
       end
 
@@ -81,14 +70,6 @@ module Leapfrog
     end
 
     module InstanceMethods
-#      def set_user_id_to_created_by
-#        self.created_by = current_user_id
-#      end
-#
-#      def set_user_id_to_updated_by
-#        self.updated_by = current_user_id
-#      end
-
       def set_user_to_created_by(key)
         self.created_by = current_user(key)
         self.updated_by = current_user(key)
