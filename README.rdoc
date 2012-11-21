@@ -14,7 +14,8 @@ updated_by columns are added.
 
 == Installation
 
-  Add to Gemfile following.
+Add to Gemfile following.
+
   gem 'leapfrog', :git => 'git://github.com/kobayashi-tbn/leapfrog.git'
 
 == Example
@@ -40,9 +41,9 @@ Migration
     end
 
 
-  If you want to add column after created tables,
-  Then run rails generate migration add_userstamps_to_todo
-  and edit the migration file.(ex. Model name is Todo.)
+If you want to add column after created tables,
+Then run rails generate migration add_userstamps_to_todo
+and edit the migration file.(ex. Model name is Todo.)
 
 
     class AddUserstampsToTodo < ActiveRecord::Migration
@@ -55,8 +56,8 @@ Migration
       end
     end
 
-  'created_by' and 'updated_by' columns type is :string.
-  If you use type :integer then, define the following.
+'created_by' and 'updated_by' columns type is :string.
+If you use type :integer then, define the following.
 
     t.userstamps :type => :integer
 
@@ -84,7 +85,8 @@ If instead of ':username', you use ':user_id' then, define 'leapfrog :user_id'
        leapfrog :username
     end
 
-  If you use user_id, that type is Integer then...
+
+If you use user_id, that type is Integer then...
 
     class Todo < ActiveRecord::Base
       leapfrog :user_id
@@ -98,17 +100,18 @@ If the key type is :integer then, session[:user_id].
 
 == Customizing the key of session map
 
-  Rails3:
-    Add following.
-    If instead of :username, you use :user_name.
+Rails3:
+Add following.
+If instead of :username, you use :user_name.
 
-    app/controllers/application_controller.rb
-    add 1 line.
-    Leapfrog::UserInfo::USERSTAMP_MAP[:name] = :user_name
+app/controllers/application_controller.rb
+add 1 line.
+
+  Leapfrog::UserInfo::USERSTAMP_KEY_MAP[:name] = :user_name
 
 == NOTE
 
-  This is alpha version.
+This is alpha version.
 
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
