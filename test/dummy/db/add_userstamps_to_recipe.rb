@@ -3,7 +3,7 @@
 
 class AddUserstampsToRecipe < ActiveRecord::Migration
   def self.up
-    add_userstamps :dummy_recipes, :type => :string
+    add_userstamps :dummy_recipes #, :type => :string
   end
 
   def self.down

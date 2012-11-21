@@ -1,3 +1,3 @@
 class DummyTodo < ActiveRecord::Base
-  leapfrog_user_id
+  leapfrog :user_id
 end

@@ -6,7 +6,7 @@ class CreateRecipe < ActiveRecord::Migration
       t.integer :book_id
 
       t.timestamps
-      t.userstamps :type => :string
+      t.userstamps #:type => :string
     end
   end
 

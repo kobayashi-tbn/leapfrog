@@ -3,7 +3,7 @@
 
 class AddUserstampsToPost < ActiveRecord::Migration
   def self.up
-    add_userstamps :dummy_posts, :type => :string
+    add_userstamps :dummy_posts #, :type => :string
   end
 
   def self.down

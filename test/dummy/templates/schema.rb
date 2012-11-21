@@ -18,7 +18,7 @@ ActiveRecord::Schema.define do
     t.boolean   :complete
 
     t.timestamps
-    t.userstamps
+    t.userstamps :type => :integer
   end
 end
 
