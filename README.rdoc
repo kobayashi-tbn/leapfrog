@@ -14,26 +14,19 @@ updated_by columns are added.
 
 == Installation
 
-  Download and copy to vender/plugins folder.
-
-  or
-
-  script/plugin install git://github.com/kobayashi-tbn/leapfrog.git
-
-  when rails3...
-  rails plugin install git://github.com/kobayashi-tbn/leapfrog.git
+  Add to Gemfile following.
+  gem 'leapfrog', :git => 'git://github.com/kobayashi-tbn/leapfrog.git'
 
 == Example
 
 Migration
 
-  Add 't.userstamps' to Migration file into self.up method.
-
+  Add 't.userstamps' to Migration file into change method.
 
     class CreateUsers < ActiveRecord::Migration
-      def self.up
-        create_table :users do |t|
-          t.string :name
+      def change
+        create_table(:users, :id => false) do |t|
+          t.string :username
           t.string :password
           t.string :email
 
@@ -42,14 +35,13 @@ Migration
         end
       end
 
-      def self.down
-        drop_table :users
-      end
+      execute "ALTER TABLE users ADD PRIMARY KEY (username)"
+
     end
 
 
   If you want to add column after created tables,
-  Then run script/generate migration add_userstamps_to_todo
+  Then run rails generate migration add_userstamps_to_todo
   and edit the migration file.(ex. Model name is Todo.)
 
 
@@ -63,18 +55,18 @@ Migration
       end
     end
 
-  'created_by' and 'updated_by' columns type is :integer.
-  If you use type :string then, define the following.
+  'created_by' and 'updated_by' columns type is :string.
+  If you use type :integer then, define the following.
 
-    t.userstamps :type => :string
+    t.userstamps :type => :integer
 
-    add_userstamps :todos, :type => :string
+    add_userstamps :todos, :type => :integer
 
 == Controller
 
 ActionController includes Leapfrog::Controller::Users
 and each Controller object was extended Leapfrog::Controller::LfMacro
-for get the user_id/username from Leapfrog::UserInfo
+for get the username or user_id from Leapfrog::UserInfo
 
 
 == Model
@@ -83,33 +75,26 @@ ActiveRecord::Base includes Leapfrog::Model::Observe.
 and each Model object was extended Leapfrog::Model::LfMacro
 for set data to 'created_by' and 'updated_by' column of the Model.
 
-You need to define 'leapfrog_user_id' in each Model
-If instead of 'user_id', you use 'username' then, define 'leapfrog :username'
+You need to define 'leapfrog :username' in each Model
+If instead of ':username', you use ':user_id' then, define 'leapfrog :user_id'
 
 === Example
 
     class Todo < ActiveRecord::Base
-      leapfrog_user_id
+       leapfrog :username
     end
 
-  or
+  If you use user_id, that type is Integer then...
 
     class Todo < ActiveRecord::Base
       leapfrog :user_id
     end
 
-  If you use username, that type is String then...
+== How to get the username
 
-    class Todo < ActiveRecord::Base
-      leapfrog :username
-    end
-
-
-== How to get the User ID
-
-Leapfrog get user_id from the session in the Controller, so
-you have to set the user_id into session[:user_id].
-If username that type is :string then, session[:username].
+Leapfrog get username/user_id from the session in the Controller, so
+you have to set the username into session[:username].
+If the key type is :integer then, session[:user_id].
 
 == Customizing the key of session map
 
@@ -123,12 +108,7 @@ If username that type is :string then, session[:username].
 
 == NOTE
 
-If it is running on development enviroment edit
-   config/enviroments/development.rb
-
-    config.cache_classes = true # false(default) -> true
-
-* This issue was fixed v0.2.3~
+  This is alpha version.
 
 
 Copyright (c) 2011 Toshinobu Kobayashi, released under the MIT license
