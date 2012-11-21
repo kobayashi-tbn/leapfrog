@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -25,6 +26,10 @@ source 'http://rubygems.org'
 # group :development, :test do
 #   gem 'webrat'
 # end
+group :development, :test do
+  gem 'activerecord-postgresql-adapter'
+  gem 'pg'
+end
 
 group :development, :test do
   require 'active_record'
