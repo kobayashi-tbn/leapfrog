@@ -9,16 +9,16 @@ class LeapfrogUsernameTest < ActiveSupport::TestCase
   test "save user_id to posts" do
     @post = DummyPost.new(:title => "New Post", :article => "First Article")
 
-    _created_by = "gaga"
+    _created_by = "gagaga"
 
-    Leapfrog::UserInfo.current_user=({Leapfrog::UserInfo::USERSTAMP_MAP[:name] => _created_by})
+    Leapfrog::UserInfo.current_user=({Leapfrog::UserInfo::USERSTAMP_KEY_MAP[:name] => _created_by})
     @post.save
     assert_equal(@post.created_by, _created_by)
     assert_equal(@post.updated_by, _created_by)
 
     _updated_by = "michael"
     
-    Leapfrog::UserInfo.current_user=({Leapfrog::UserInfo::USERSTAMP_MAP[:name] => _updated_by})
+    Leapfrog::UserInfo.current_user=({Leapfrog::UserInfo::USERSTAMP_KEY_MAP[:name] => _updated_by})
     @post.save
     assert_equal(@post.created_by, _created_by)
     assert_equal(@post.updated_by, _updated_by)

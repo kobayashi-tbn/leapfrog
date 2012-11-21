@@ -11,14 +11,16 @@ class LeapfrogTest < ActiveSupport::TestCase
 
     _created_by = 10
 
-    Leapfrog::UserInfo.current_user_id = _created_by
+    #Leapfrog::UserInfo.current_user_id = _created_by
+    Thread.current[:user_id] = _created_by
     @todo.save
     assert_equal(@todo.created_by, _created_by)
     assert_equal(@todo.updated_by, _created_by)
 
     _updated_by = 11
 
-    Leapfrog::UserInfo.current_user_id = _updated_by
+    #Leapfrog::UserInfo.current_user_id = _updated_by
+    Thread.current[:user_id] = _updated_by
     @todo.save
     assert_equal(@todo.created_by, _created_by)
     assert_equal(@todo.updated_by, _updated_by)
